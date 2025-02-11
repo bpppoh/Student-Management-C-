@@ -97,6 +97,7 @@ string recieve_string (const string& word , int length , string filter) {
             getline(cin,str) ;
             if(str.length()!=length) {
                 cout << "Error , Input must be " << length << " letters\n\n" ;
+                check = false ;
                 continue;
             } for(char ch : str) {
                 if(!isalpha(ch) && !isspace(ch)) {
@@ -146,11 +147,12 @@ string recieve_string (const string& word , string filter) {
     } else if (filter == "digit&space") {
         do
         {
+            check = true ;
             cout << word ;
             getline(cin,str) ;
             for(char ch : str) {
                 if(!isdigit(ch) && !isspace(ch)) {
-                    cout << "Error , Input must be alphabet only\n\n" ;
+                    cout << "Error , Input must contain only digits and spaces\n\n";
                     check = false ;
                     break ;
                 }
@@ -160,6 +162,7 @@ string recieve_string (const string& word , string filter) {
     } else if (filter == "alphabet&space") {
         do
         {
+            check = true ;
             cout << word ;
             getline(cin,str) ;
             for(char ch : str) {
@@ -388,6 +391,7 @@ namespace StudentManagement {
                 for (auto it = StudentList.begin() ; it != StudentList.end() ; it++) {
                     if(id == it->get_id()) {
                         StudentList.erase(it) ;
+                        cout << "===== Student has been Deleted =====\n\n" ;
                         return ;
                     }
                 }
@@ -488,7 +492,7 @@ Student::Student create_return_student () {
     int age ;
     float gpa ;
 
-    id = recieve_string("Enter ID : ","digit") ;
+    id = recieve_string("Enter ID : ",8,"digit") ;
     name = recieve_string("Enter Name : ","alphabet" ) ;
     age = recieve_int("Enter Age : ",0) ;
     gpa = recieve_float("Enter GPA : ",0,4) ;
@@ -546,5 +550,4 @@ int main () {
             break;
         }
     } while (!end);
-    
 }
